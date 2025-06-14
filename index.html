@@ -55,10 +55,10 @@
         }
         .flame-number {
             position: absolute;
-            top: 55%;
+            top: 61%; /* BAJADO del 55% al 61% */
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(60px, 8vw, 100px);
+            font-size: clamp(72px, 10vw, 120px); /* MÁS GRANDE */
             color: #ff4500;
             font-weight: 900;
             text-shadow: 
@@ -76,13 +76,12 @@
             100% { transform: translate(-50%, -50%) scale(1.05);}
         }
 
-        /* ------------ NOMBRE: BLANCO, BORDE NEGRO, ARCOÍRIS SOLIDO ----------- */
         .username {
             position: absolute;
             top: 95%;
             left: 50%;
             transform: translateX(-50%);
-            font-size: clamp(24px, 4vw, 40px);
+            font-size: clamp(28px, 6vw, 52px); /* MÁS GRANDE */
             font-weight: 900;
             color: #fff;
             white-space: nowrap;
@@ -91,7 +90,6 @@
             text-overflow: ellipsis;
             /* Primer borde negro sólido, luego rainbow sólido animado */
             text-shadow:
-                /* Borde negro grueso */
                 0px 0px 1px #000,
                 2px 2px 0px #000,
                 -2px -2px 0px #000,
@@ -147,7 +145,7 @@
             top: 105%;
             left: 50%;
             transform: translateX(-50%);
-            font-size: clamp(16px, 2.5vw, 24px);
+            font-size: clamp(18px, 3vw, 28px); /* también más grande */
             color: #ffe800;
             font-weight: 600;
             text-shadow: 0 2px 5px #333, 0 0 10px #fff8;
