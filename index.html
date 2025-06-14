@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Racha Diaria - Overlay</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             background: transparent;
@@ -38,46 +32,27 @@
             transform: scale(1) translateY(0);
             animation: float 3s ease-in-out infinite;
         }
-
         .flame-container.hide {
             opacity: 0;
             transform: scale(0.8) translateY(-50px);
         }
-
         @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg); 
-            }
-            33% { 
-                transform: translateY(-8px) rotate(1deg); 
-            }
-            66% { 
-                transform: translateY(-4px) rotate(-1deg); 
-            }
+            0%, 100% { transform: translateY(0) rotate(0deg);}
+            33% { transform: translateY(-8px) rotate(1deg);}
+            66% { transform: translateY(-4px) rotate(-1deg);}
         }
-
         @keyframes flameFlicker {
-            0%, 100% { 
-                filter: hue-rotate(0deg) saturate(1) brightness(1);
-            }
-            25% { 
-                filter: hue-rotate(5deg) saturate(1.1) brightness(1.1);
-            }
-            50% { 
-                filter: hue-rotate(-5deg) saturate(0.9) brightness(0.9);
-            }
-            75% { 
-                filter: hue-rotate(3deg) saturate(1.05) brightness(1.05);
-            }
+            0%, 100% { filter: hue-rotate(0deg) saturate(1) brightness(1);}
+            25% { filter: hue-rotate(5deg) saturate(1.1) brightness(1.1);}
+            50% { filter: hue-rotate(-5deg) saturate(0.9) brightness(0.9);}
+            75% { filter: hue-rotate(3deg) saturate(1.05) brightness(1.05);}
         }
-
         .flame-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
             animation: flameFlicker 2s ease-in-out infinite;
         }
-
         .flame-number {
             position: absolute;
             top: 55%;
@@ -96,97 +71,74 @@
             animation: numberPulse 1s ease-in-out infinite alternate;
             z-index: 10;
         }
-
         @keyframes numberPulse {
-            0% { 
-                transform: translate(-50%, -50%) scale(1);
-                text-shadow: 
-                    0 0 10px rgba(255, 69, 0, 0.8),
-                    0 0 20px rgba(255, 69, 0, 0.6),
-                    3px 3px 0px rgba(139, 0, 0, 0.8);
-            }
-            100% { 
-                transform: translate(-50%, -50%) scale(1.05);
-                text-shadow: 
-                    0 0 15px rgba(255, 69, 0, 1),
-                    0 0 30px rgba(255, 69, 0, 0.8),
-                    3px 3px 0px rgba(139, 0, 0, 1);
-            }
+            0% { transform: translate(-50%, -50%) scale(1);}
+            100% { transform: translate(-50%, -50%) scale(1.05);}
         }
 
-        /* ---- NOMBRE BLANCO CON BORDE ARCOÍRIS ANIMADO ---- */
+        /* ------------ NOMBRE: BLANCO, BORDE NEGRO, ARCOÍRIS SOLIDO ----------- */
         .username {
             position: absolute;
             top: 95%;
             left: 50%;
             transform: translateX(-50%);
             font-size: clamp(24px, 4vw, 40px);
-            color: #fff;
             font-weight: 900;
+            color: #fff;
             white-space: nowrap;
             max-width: 90vw;
             overflow: hidden;
             text-overflow: ellipsis;
-            /* Glow rainbow animado */
+            /* Primer borde negro sólido, luego rainbow sólido animado */
             text-shadow:
-                0 0 8px #fff,
-                0 0 20px #fff,
-                0 0 32px #fff,
-                0 0 48px #fff,
-                0 0 0px #fff; /* relleno, el glow color se añade abajo */
-            filter: none;
-            animation: rainbowGlow 2.5s linear infinite;
-            z-index: 100;
+                /* Borde negro grueso */
+                0px 0px 1px #000,
+                2px 2px 0px #000,
+                -2px -2px 0px #000,
+                2px -2px 0px #000,
+                -2px 2px 0px #000,
+                0px 3px 0px #000,
+                3px 0px 0px #000,
+                -3px 0px 0px #000,
+                0px -3px 0px #000,
+                /* Arcoíris exterior, se animará con keyframes */
+                0 0 6px var(--rainbow1, #ff00cc),
+                0 0 10px var(--rainbow2, #3333ff),
+                0 0 15px var(--rainbow3, #33ffcc),
+                0 0 20px var(--rainbow4, #ffff66);
+            animation: rainbowBorder 2s linear infinite;
         }
 
-        @keyframes rainbowGlow {
+        @keyframes rainbowBorder {
             0% {
-                text-shadow:
-                    0 0 8px #ff00cc, 
-                    0 0 20px #3333ff,
-                    0 0 32px #33ffcc,
-                    0 0 48px #ffff66,
-                    0 0 0px #fff;
+                --rainbow1: #ff00cc;
+                --rainbow2: #3333ff;
+                --rainbow3: #33ffcc;
+                --rainbow4: #ffff66;
             }
-            20% {
-                text-shadow:
-                    0 0 8px #3333ff, 
-                    0 0 20px #33ffcc,
-                    0 0 32px #ffff66,
-                    0 0 48px #ff9900,
-                    0 0 0px #fff;
+            25% {
+                --rainbow1: #3333ff;
+                --rainbow2: #33ffcc;
+                --rainbow3: #ffff66;
+                --rainbow4: #ff9900;
             }
-            40% {
-                text-shadow:
-                    0 0 8px #33ffcc, 
-                    0 0 20px #ffff66,
-                    0 0 32px #ff9900,
-                    0 0 48px #ff3366,
-                    0 0 0px #fff;
+            50% {
+                --rainbow1: #33ffcc;
+                --rainbow2: #ffff66;
+                --rainbow3: #ff9900;
+                --rainbow4: #ff3366;
             }
-            60% {
-                text-shadow:
-                    0 0 8px #ffff66, 
-                    0 0 20px #ff9900,
-                    0 0 32px #ff3366,
-                    0 0 48px #ff00cc,
-                    0 0 0px #fff;
-            }
-            80% {
-                text-shadow:
-                    0 0 8px #ff9900, 
-                    0 0 20px #ff3366,
-                    0 0 32px #ff00cc,
-                    0 0 48px #3333ff,
-                    0 0 0px #fff;
+            75% {
+                --rainbow1: #ffff66;
+                --rainbow2: #ff9900;
+                --rainbow3: #ff3366;
+                --rainbow4: #ff00cc;
             }
             100% {
-                text-shadow:
-                    0 0 8px #ff00cc, 
-                    0 0 20px #3333ff,
-                    0 0 32px #33ffcc,
-                    0 0 48px #ffff66,
-                    0 0 0px #fff;
+                --rainbow1: #ff00cc;
+                --rainbow2: #3333ff;
+                --rainbow3: #33ffcc;
+                --rainbow4: #ffff66;
             }
         }
 
@@ -221,19 +173,11 @@
             background: #28a745;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
-            .flame-container {
-                width: 280px;
-                height: 320px;
-            }
+            .flame-container { width: 280px; height: 320px;}
         }
-
         @media (max-width: 480px) {
-            .flame-container {
-                width: 240px;
-                height: 280px;
-            }
+            .flame-container { width: 240px; height: 280px;}
         }
     </style>
 </head>
