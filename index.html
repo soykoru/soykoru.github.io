@@ -114,31 +114,27 @@
             }
         }
 
+        /* ---- CORREGIDO: NOMBRE NÍTIDO SIN DEGRADADO ---- */
         .username {
             position: absolute;
             top: 95%;
             left: 50%;
             transform: translateX(-50%);
             font-size: clamp(24px, 4vw, 40px);
-            color: #ffffff;
-            font-weight: 800;
+            color: #222; /* negro sólido */
+            font-weight: 900;
             text-shadow: 
-                2px 2px 4px rgba(0, 0, 0, 0.8),
-                0 0 10px rgba(255, 255, 255, 0.3);
+                0 3px 8px #ffd700, /* glow dorado */
+                1px 1px 2px #000;  /* bordecito negro para máxima nitidez */
             white-space: nowrap;
             max-width: 90vw;
             overflow: hidden;
             text-overflow: ellipsis;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbowText 3s ease-in-out infinite;
-        }
-
-        @keyframes rainbowText {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            /* ELIMINADO: gradiente y background-clip */
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: initial !important;
+            animation: none !important;
         }
 
         .streak-message {
@@ -147,11 +143,11 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: clamp(16px, 2.5vw, 24px);
-            color: #ffff00;
+            color: #ffe800;
             font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 5px #333, 0 0 10px #fff8;
             white-space: nowrap;
-            opacity: 0.9;
+            opacity: 0.93;
         }
 
         .connection-status {
@@ -248,3 +244,4 @@
     </script>
 </body>
 </html>
+
