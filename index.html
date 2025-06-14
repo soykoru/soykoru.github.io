@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Racha Diaria - Overlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: transparent;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flame-container {
+            position: relative;
+            width: 350px;
+            height: 400px;
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 30px rgba(255, 69, 0, 0.3));
+        }
+
+        .flame-container.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .flame-container.hide {
+            opacity: 0;
+            transform: scale(0.8) translateY(-50px);
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            33% { 
+                transform: translateY(-8px) rotate(1deg); 
+            }
+            66% { 
+                transform: translateY(-4px) rotate(-1deg); 
+            }
+        }
+
+        @keyframes flameFlicker {
+            0%, 100% { 
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            25% { 
+                filter: hue-rotate(5deg) saturate(1.1) brightness(1.1);
+            }
+            50% { 
+                filter: hue-rotate(-5deg) saturate(0.9) brightness(0.9);
+            }
+            75% { 
+                filter: hue-rotate(3deg) saturate(1.05) brightness(1.05);
+            }
+        }
+
+        .flame-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: flameFlicker 2s ease-in-out infinite;
+        }
+
+        .flame-number {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(60px, 8vw, 100px);
+            color: #ff4500;
+            font-weight: 900;
+            text-shadow: 
+                0 0 10px rgba(255, 69, 0, 0.8),
+                0 0 20px rgba(255, 69, 0, 0.6),
+                3px 3px 0px rgba(139, 0, 0, 0.8),
+                -1px -1px 0px rgba(139, 0, 0, 0.8),
+                1px -1px 0px rgba(139, 0, 0, 0.8),
+                -1px 1px 0px rgba(139, 0, 0, 0.8);
+            animation: numberPulse 1s ease-in-out infinite alternate;
+            z-index: 10;
+        }
+
+        @keyframes numberPulse {
+            0% { 
+                transform: translate(-50%, -50%) scale(1);
+                text-shadow: 
+                    0 0 10px rgba(255, 69, 0, 0.8),
+                    0 0 20px rgba(255, 69, 0, 0.6),
+                    3px 3px 0px rgba(139, 0, 0, 0.8);
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1.05);
+                text-shadow: 
+                    0 0 15px rgba(255, 69, 0, 1),
+                    0 0 30px rgba(255, 69, 0, 0.8),
+                    3px 3px 0px rgba(139, 0, 0, 1);
+            }
+        }
+
+        .username {
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(24px, 4vw, 40px);
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+            max-width: 90vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowText 3s ease-in-out infinite;
+        }
+
+        @keyframes rainbowText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .streak-message {
+            position: absolute;
+            top: 105%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(16px, 2.5vw, 24px);
+            color: #ffff00;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+            opacity: 0.9;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background: #dc3545;
+            opacity: 0.8;
+            z-index: 1000;
+        }
+
+        .connection-status.connected {
+            background: #28a745;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .flame-container {
+                width: 280px;
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flame-container {
+                width: 240px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flame-container hide">
+        <img class="flame-image" src="flame_final.png" alt="Llama">
+        <div class="flame-number"></div>
+        <div class="username"></div>
+        <div class="streak-message"></div>
+    </div>
+    <div class="connection-status">Desconectado</div>
+    <script>
+        let ws;
+        let lastTimeout;
+
+        function showStreak(user, streak, message) {
+            const container = document.querySelector('.flame-container');
+            const number = document.querySelector('.flame-number');
+            const username = document.querySelector('.username');
+            const streakMsg = document.querySelector('.streak-message');
+
+            number.textContent = streak;
+            username.textContent = user;
+            streakMsg.textContent = message;
+
+            container.classList.add('visible');
+            container.classList.remove('hide');
+
+            clearTimeout(lastTimeout);
+            lastTimeout = setTimeout(() => {
+                container.classList.add('hide');
+                container.classList.remove('visible');
+            }, 5000);
+        }
+
+        function setStatus(status) {
+            const statusDiv = document.querySelector('.connection-status');
+            statusDiv.textContent = status ? "Conectado" : "Desconectado";
+            statusDiv.classList.toggle('connected', status);
+        }
+
+        function connectWebSocket() {
+            ws = new WebSocket('ws://127.0.0.1:7171');
+            ws.onopen = () => setStatus(true);
+            ws.onclose = () => setStatus(false);
+            ws.onerror = () => setStatus(false);
+
+            ws.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.action === "updateOverlay") {
+                        showStreak(data.user, data.streak, data.message);
+                    }
+                } catch {}
+            };
+        }
+
+        window.onload = () => {
+            connectWebSocket();
+        };
+    </script>
+</body>
+</html>
