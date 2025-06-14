@@ -55,10 +55,10 @@
         }
         .flame-number {
             position: absolute;
-            top: 61%; /* BAJADO del 55% al 61% */
+            top: 61%; /* BAJADO */
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(72px, 10vw, 120px); /* MÁS GRANDE */
+            font-size: clamp(72px, 10vw, 120px);
             color: #ff4500;
             font-weight: 900;
             text-shadow: 
@@ -81,14 +81,13 @@
             top: 95%;
             left: 50%;
             transform: translateX(-50%);
-            font-size: clamp(28px, 6vw, 52px); /* MÁS GRANDE */
+            font-size: clamp(28px, 6vw, 52px);
             font-weight: 900;
             color: #fff;
             white-space: nowrap;
             max-width: 90vw;
             overflow: hidden;
             text-overflow: ellipsis;
-            /* Primer borde negro sólido, luego rainbow sólido animado */
             text-shadow:
                 0px 0px 1px #000,
                 2px 2px 0px #000,
@@ -99,7 +98,6 @@
                 3px 0px 0px #000,
                 -3px 0px 0px #000,
                 0px -3px 0px #000,
-                /* Arcoíris exterior, se animará con keyframes */
                 0 0 6px var(--rainbow1, #ff00cc),
                 0 0 10px var(--rainbow2, #3333ff),
                 0 0 15px var(--rainbow3, #33ffcc),
@@ -140,15 +138,16 @@
             }
         }
 
+        /* Cambios aquí: más abajo, más pequeño, menos peso y menos sombra */
         .streak-message {
             position: absolute;
-            top: 105%;
+            top: 112%; /* MÁS ABAJO */
             left: 50%;
             transform: translateX(-50%);
-            font-size: clamp(18px, 3vw, 28px); /* también más grande */
+            font-size: clamp(13px, 2vw, 18px); /* MÁS PEQUEÑO */
             color: #ffe800;
-            font-weight: 600;
-            text-shadow: 0 2px 5px #333, 0 0 10px #fff8;
+            font-weight: 500; /* menos grueso */
+            text-shadow: 0 1px 3px #333, 0 0 6px #fff8;
             white-space: nowrap;
             opacity: 0.93;
         }
